@@ -239,7 +239,7 @@ void desc_pocket(char fcomplexe[], const char ligname[], s_dparams *par,
 	verts = pockets->vertices ;
 	edesc = allocate_s_desc() ;
 	interface = get_explicit_desc(pdb_cplx_l, verts, lig, nal, par,
-								   &nai, edesc) ;
+				      &nai, edesc, ligname) ;
 
 	/* Writing output */
 	vol = get_mol_volume_ptr(lig, nal, par->fpar->nb_mcv_iter) ;
@@ -311,6 +311,7 @@ void desc_pocket(char fcomplexe[], const char ligname[], s_dparams *par,
 	@ s_dparams *par        : Parameters
 	@ int *nai              : OUTPUT Number of atom in the interface
 	@ s_desc *desc          : OUTPUT Descriptors
+	@ const char ligname[] : Ligand residue name to exclude from protein
   
    ## RETURN:
 	s_atm **: List of pointer to atoms defining the explicit pocket.
@@ -318,7 +319,8 @@ void desc_pocket(char fcomplexe[], const char ligname[], s_dparams *par,
   
 */
 s_atm** get_explicit_desc(s_pdb *pdb_cplx_l, s_lst_vvertice *verts, s_atm **lig, 
-						  int nal, s_dparams *par, int *nai, s_desc *desc)
+			  int nal, s_dparams *par, int *nai, s_desc *desc,
+			  const char ligname[])
 {
 	int nvn = 0 ;	/* Number of vertices in the interface */
 
@@ -354,7 +356,7 @@ s_atm** get_explicit_desc(s_pdb *pdb_cplx_l, s_lst_vvertice *verts, s_atm **lig,
 /*
 	fprintf(stdout, "dpocket: Calculating descriptors... ") ; fflush(stdout) ;
 */
-	set_descriptors(interface, *nai, tpverts, nvn, desc, par->fpar->nb_mcv_iter,pdb_cplx_l,par->fpar->flag_do_asa_and_volume_calculations);
+	set_descriptors(interface, *nai, tpverts, nvn, desc, par->fpar->nb_mcv_iter,pdb_cplx_l,par->fpar->flag_do_asa_and_volume_calculations,ligname);
 /*
 	fprintf(stdout, " OK\n") ;
 */

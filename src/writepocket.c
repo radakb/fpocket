@@ -162,7 +162,7 @@ void write_pocket_pdb_DB(const char out[], s_pocket *pocket, s_pdb *pdb) {
             nvcur = nvcur->next;
             nvert++;
         }
-        sa = (int *) get_surrounding_atoms_idx(tab_vert, nvert, pdb, &n_sa);
+        sa = (int *) get_surrounding_atoms_idx(tab_vert, nvert, pdb, &n_sa, "");
         for (i = 0; i < n_sa; i++) {
             atom = pdb->latoms_p[sa[i]];
             write_pdb_atom_line(f, atom->type, atom->id, atom->name, atom->pdb_aloc,
@@ -210,7 +210,7 @@ void write_pocket_mmcif_DB(const char out[], s_pocket *pocket, s_pdb *pdb) {
             nvcur = nvcur->next;
             nvert++;
         }
-        sa = (int *) get_surrounding_atoms_idx(tab_vert, nvert, pdb, &n_sa);
+        sa = (int *) get_surrounding_atoms_idx(tab_vert, nvert, pdb, &n_sa, "");
         for (i = 0; i < n_sa; i++) {
             atom = pdb->latoms_p[sa[i]];
             write_mmcif_atom_line(f, atom->type, atom->id, atom->name, atom->pdb_aloc,

@@ -450,7 +450,7 @@ void mdpocket_characterize(s_mdparams *par) {
 
                     /*get atoms contacted by the pocket*/
                     pocket_atoms = get_pocket_contacted_atms(cpocket, &natms);
-                    set_descriptors(pocket_atoms, natms, tab_vert, cpocket->v_lst->n_vertices, cpocket->pdesc, par->fpar->nb_mcv_iter, cpdb, par->fpar->flag_do_asa_and_volume_calculations);
+                    set_descriptors(pocket_atoms, natms, tab_vert, cpocket->v_lst->n_vertices, cpocket->pdesc, par->fpar->nb_mcv_iter, cpdb, par->fpar->flag_do_asa_and_volume_calculations,"");
 
                     my_free(pocket_atoms); /*free current pocket atoms*/
                     free(tab_vert); /*free tmp vertice tab*/
@@ -600,7 +600,7 @@ void mdpocket_characterize(s_mdparams *par) {
 
                     /*get atoms contacted by the pocket*/
                     pocket_atoms = get_pocket_contacted_atms(cpocket, &natms);
-                    set_descriptors(pocket_atoms, natms, tab_vert, cpocket->v_lst->n_vertices, cpocket->pdesc, par->fpar->nb_mcv_iter, topology_pdb, par->fpar->flag_do_asa_and_volume_calculations);
+                    set_descriptors(pocket_atoms, natms, tab_vert, cpocket->v_lst->n_vertices, cpocket->pdesc, par->fpar->nb_mcv_iter, topology_pdb, par->fpar->flag_do_asa_and_volume_calculations,"");
                     //if (par->fpar->flag_do_grid_calculations && k == 1) vdw_grid = init_pocket_grid(cpocket);
                     my_free(pocket_atoms); /*free current pocket atoms*/
                     free(tab_vert); /*free tmp vertice tab*/

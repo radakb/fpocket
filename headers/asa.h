@@ -49,9 +49,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 int atom_not_in_list(s_atm *a,s_atm **atoms,int natoms);
-void set_ASA(s_desc *desc,s_pdb *pdb, s_vvertice **tvert,int nvert);
+void set_ASA(s_desc *desc,s_pdb *pdb, s_vvertice **tvert,int nvert,const char ligname[]);
 int *get_unique_atoms(s_vvertice **tvert,int nvert, int *n_ua,s_atm **p,int na);
 float *get_points_on_sphere(int nop);
-int *get_surrounding_atoms_idx(s_vvertice **tvert,int nvert,s_pdb *pdb, int *n_sa);
+int *get_surrounding_atoms_idx(s_vvertice **tvert,int nvert,s_pdb *pdb, int *n_sa, const char ligname[]);
 
 #endif

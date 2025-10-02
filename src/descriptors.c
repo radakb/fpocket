@@ -150,13 +150,15 @@ void reset_desc(s_desc *desc)
 	@ s_vvertice **tvert : The list of vertices
 	@ int nvert             : The number of vertices
 	@ s_desc *desc          : OUTPUT: The descriptor structure to fill
-  
+        @ const char ligname[]  : Ligand residue name to exclude from protein (dpocket only)
+
    ## RETURN:
     void: s_desc is filled
   
 */
 void set_descriptors(s_atm **atoms, int natoms, s_vvertice **tvert, int nvert,
-					 s_desc *desc,int niter,s_pdb *pdb, int flag_do_expensive_calculations)
+		     s_desc *desc,int niter,s_pdb *pdb,
+		     int flag_do_expensive_calculations, const char ligname[])
 {
 	/* Setting atom-based descriptors */
 	set_atom_based_descriptors(atoms, natoms, desc, pdb->latoms, pdb->natoms) ;
@@ -242,11 +244,11 @@ void set_descriptors(s_atm **atoms, int natoms, s_vvertice **tvert, int nvert,
 
             if(flag_do_expensive_calculations) {
 
-            set_ASA(desc, pdb, tvert, nvert);
+            set_ASA(desc, pdb, tvert, nvert, ligname);
             desc->volume = get_verts_volume_ptr(tvert, nvert, niter,-1.6) ;
             desc->convex_hull_volume = get_convex_hull_volume(tvert,nvert);
         }
-        /*set_ASA(desc,pdb, atoms, natoms, tvert, nvert);*/
+        /*set_ASA(desc,pdb, atoms, natoms, tvert, nvert, ligname);*/
         
         
 	desc->as_max_dst = as_max_dst ;

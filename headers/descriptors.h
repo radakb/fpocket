@@ -90,14 +90,14 @@ typedef struct s_desc
 /* ------------------------------PROTOTYPES---------------------------------- */
 
 //explicit definition from asa.h 
-void set_ASA(s_desc *desc,s_pdb *pdb, s_vvertice **tvert,int nvert);
+void set_ASA(s_desc *desc,s_pdb *pdb, s_vvertice **tvert,int nvert, const char ligname[]);
 
 
 s_desc* allocate_s_desc(void) ;
 void reset_desc(s_desc *desc) ;
 
 
-void set_descriptors(s_atm **tatoms, int natoms, s_vvertice **tvert, int nvert, s_desc *desc, int niter,s_pdb *pdb,int flag_do_expensive_calculations) ;
+void set_descriptors(s_atm **tatoms, int natoms, s_vvertice **tvert, int nvert, s_desc *desc, int niter,s_pdb *pdb,int flag_do_expensive_calculations, const char ligname[]) ;
 
 int get_vert_apolar_density(s_vvertice **tvert, int nvert, s_vvertice *vert) ;
 void set_atom_based_descriptors(s_atm **atoms, int natoms, s_desc *desc,s_atm *all_atoms, int all_natoms);

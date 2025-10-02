@@ -76,12 +76,13 @@ int atom_in_list(s_atm *a, s_atm **atoms, int natoms){
 	@ int nvert : Number of Voronoi vertices
         @ s_pdb *pdb : Structure of the protein
         @ int *n_sa : Pointer to int holding the number of surrounding atoms
+        @ const char ligname[] : Ligand residue name to exclude from protein
 
    ## RETURN:
         int * : atom ids of surrounding atoms
  */
 
-int *get_surrounding_atoms_idx(s_vvertice **tvert,int nvert,s_pdb *pdb, int *n_sa){
+int *get_surrounding_atoms_idx(s_vvertice **tvert,int nvert,s_pdb *pdb, int *n_sa, const char ligname[]){
     s_atm *a=NULL;
     int *sa=NULL;
     int i,z,flag=0;
@@ -89,7 +90,7 @@ int *get_surrounding_atoms_idx(s_vvertice **tvert,int nvert,s_pdb *pdb, int *n_s
     for(i=0;i<pdb->natoms;i++){
         a=pdb->latoms_p[i];
         //consider only heavy atoms for vdw incr.
-        if(strncmp(a->symbol,"H",1)){
+        if(strncmp(a->symbol,"H",1) && strncmp(a->res_name,ligname,3)){ 
             flag=0;
             for(z=0;z<nvert && !flag;z++){
                 //flag=atom_not_in_list(a,sa,*n_sa);
@@ -229,7 +230,7 @@ s_atm **get_unique_atoms_DEPRECATED(s_vvertice **tvert,int nvert, int *n_ua)
 	@ s_pdb *pdb : Structure containing the protein
         @ s_vvertices **tvert : List of pointers to Voronoi vertices
         @ int nvert : Number of vertices
-
+        @ const char ligname[] : Ligand residue name to exclude from protein
 
    ## RETURN:
         void
@@ -237,7 +238,7 @@ s_atm **get_unique_atoms_DEPRECATED(s_vvertice **tvert,int nvert, int *n_ua)
 
 
 
-void set_ASA(s_desc *desc,s_pdb *pdb, s_vvertice **tvert,int nvert)
+void set_ASA(s_desc *desc,s_pdb *pdb, s_vvertice **tvert,int nvert, const char ligname[])
 {
     desc->surf_pol_vdw14=0.0;
     desc->surf_apol_vdw14=0.0;
@@ -255,7 +256,7 @@ void set_ASA(s_desc *desc,s_pdb *pdb, s_vvertice **tvert,int nvert)
     int n_sa = 0;
     int n_ua = 0;
     int i;
-    sa=get_surrounding_atoms_idx(tvert,nvert,pdb, &n_sa);
+    sa=get_surrounding_atoms_idx(tvert,nvert,pdb, &n_sa, ligname);
     /*ua=get_unique_atoms_DEPRECATED(tvert,nvert, &n_ua,pdb->latoms_p,pdb->natoms);*/
 
     ua=get_unique_atoms_DEPRECATED(tvert,nvert, &n_ua);

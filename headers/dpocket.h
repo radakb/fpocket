@@ -77,7 +77,7 @@ void desc_pocket(char fcomplexe[], const char ligname[], s_dparams *par,
 				 FILE *f[3]) ;
 
 s_atm** get_explicit_desc(s_pdb *pdb_cplx_l, s_lst_vvertice *verts, s_atm **lig, 
-						  int nal, s_dparams *par, int *nai, s_desc *desc) ;
+			  int nal, s_dparams *par, int *nai, s_desc *desc, const char ligname[]) ;
 
 void write_pocket_desc(const char fc[], const char l[], s_desc *d, float lv,
                        float ovlp, float dst, float c4, float c5, FILE *f) ;
